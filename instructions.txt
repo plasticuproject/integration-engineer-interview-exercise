@@ -1,0 +1,5 @@
+Load data from JSON file.
+Output the domain with the highest risk score and the domain with the lowest risk score (If tied the first occurence).
+What’s the average of all the domain risk scores.
+Print a list of unique IP addresses.
+Tell me all the domains which contains “phishing” as one of its threats.
