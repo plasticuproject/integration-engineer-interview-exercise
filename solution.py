@@ -31,10 +31,12 @@ def solution(file_name: str) -> SolutionReturnType:
     with open(file_name, "r", encoding='utf-8') as data_file:
         data = json.load(data_file)
 
+    # Initialize empty lists.
     _scores: List[Tuple[int, str]] = []
     _ips: List[str] = []
     _phishing: List[Tuple[str, str]] = []
 
+    # Loop through domain dictionaries in JSON data.
     for domain in data['response']['results']:
 
         # Append a tuple containing the domain's risk score and name to
@@ -51,9 +53,6 @@ def solution(file_name: str) -> SolutionReturnType:
             if 'phishing' in component['name']:
                 _phishing.append((domain['domain'], component['name']))
 
-    # Sort the _scores list by the risk score in descending order.
-    _scores.sort(reverse=True)
-
     # Return a list containing the _scores, _ips, and _phishing lists.
     return (_scores, _ips, _phishing)
 
@@ -64,9 +63,8 @@ if __name__ == "__main__":
     # 1 #
     # Output the domain with the highest risk score and the domain with the
     #     lowest risk score (If tied the first occurence).
-    print(scores[0][1], scores[0][0])
-    print(scores[-1][1], scores[-1][0])
-    print()
+    print(max(scores, key=lambda x: x[0]))
+    print(min(scores, key=lambda x: x[0]))
 
     # 2 #
     # What’s the average of all the domain risk scores.

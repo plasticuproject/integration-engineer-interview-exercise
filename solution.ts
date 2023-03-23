@@ -67,13 +67,6 @@ type solutionReturnType = [
         _phishing.push({[domain.domain]: component.name});
       }
     }
-
-    // Sort the _scores array by the risk score in descending order.
-    _scores.sort((a: { [key: number]: string}, b: { [key: number]: string }) => {
-      const keyA = parseInt(Object.keys(a)[0]);
-      const keyB = parseInt(Object.keys(b)[0]);
-      return keyB - keyA;
-    });
   }
 
   // Return an array containing the _scores, _ips, and _phishing arrays.
@@ -85,8 +78,20 @@ const [scores, ips, phishing] = solution(fileName);
 
 // #1 Output the domain with the highest risk score and the domain with the
 //      lowest risk score (If tied the first occurence).
-console.log(scores[0])
-console.log(scores[scores.length - 1])
+let minKey: number | null = null;
+let maxKey: number | null = null;
+scores.reduce((_, obj) => {
+  const key = parseInt(Object.keys(obj)[0]);
+  if (maxKey === null || key > maxKey) {
+    maxKey = key;
+  }
+  if (minKey === null || key < minKey) {
+    minKey = key;
+  }
+  return null;
+}, null);
+console.log(scores.filter((obj) => parseInt(Object.keys(obj)[0]) === maxKey)[0]);
+console.log(scores.filter((obj) => parseInt(Object.keys(obj)[0]) === minKey)[0]);
 
 // #2 What’s the average of all the domain risk scores
 const nums = scores.map(obj => parseInt(Object.keys(obj)[0]));
