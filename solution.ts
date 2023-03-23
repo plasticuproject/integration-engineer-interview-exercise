@@ -1,5 +1,6 @@
-// Load data from JSON file.
-const jsonData= require('./some_dt_data_from_investigate.json');
+// solution.ts
+
+const fileName: string = './some_dt_data_from_investigate.json';
 
 interface InvestigationData {
   response: {
@@ -30,18 +31,24 @@ type solutionReturnType = [
 /**
  * Function to parse investigation file, returning various information.
  *
- * @param {InvestigationData} data - A JSON object containing investigation data.
+ * @param {string} jsonDataFile - Name of JSON file containing investigation data.
  *
  * @returns {solutionReturnType} - An array containing three arrays:
  *   1. An array of objects, each containing a domain's risk score and name.
  *   2. An array of IP addresses extracted from the JSON data.
  *   3. An array of objects, each containing a domain name and its associated phishing component.
  */
- function solution(data: InvestigationData): solutionReturnType {
+ function solution(jsonDataFile: string): solutionReturnType {
+
+  // Load data from JSON file.
+   const data: InvestigationData = require(jsonDataFile);
+
+   // Initialize empty arrays.
    const _scores: { [key: number]: string }[] = [];
    const _ips: string[] = [];
    const _phishing: { [key: string]: string }[] = [];
 
+   // Loop through domain objects in JSON Object.
   for (let domain of data.response.results) {
 
     // Push an object containing the domain's risk score and name to _scores array.
@@ -74,7 +81,7 @@ type solutionReturnType = [
 }
 
 
-const [scores, ips, phishing] = solution(jsonData);
+const [scores, ips, phishing] = solution(fileName);
 
 // #1 Output the domain with the highest risk score and the domain with the
 //      lowest risk score (If tied the first occurence).

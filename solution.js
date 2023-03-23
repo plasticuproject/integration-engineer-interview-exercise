@@ -1,21 +1,28 @@
-// Load data from JSON file.
-const jsonData= require('./some_dt_data_from_investigate.json');
+// solution.js
+
+const fileName = './some_dt_data_from_investigate.json';
 
 /**
  * Function to parse investigation file, returning various information.
  *
- * @param {Object} data - A JSON object containing investigation data.
+ * @param {string} jsonDataFile - Name of JSON file containing investigation data.
  *
  * @returns {Array} - An array containing three arrays:
  *   1. An array of objects, each containing a domain's risk score and name.
  *   2. An array of IP addresses extracted from the JSON data.
  *   3. An array of objects, each containing a domain name and its associated phishing component.
  */
-function solution(data) {
+function solution(jsonDataFile) {
+
+  // Load data from JSON file.
+  const data = require(jsonDataFile);
+
+   // Initialize empty arrays.
   const _scores = [];
   const _ips = [];
   const _phishing = [];
 
+   // Loop through domain objects in JSON Object.
   for (let domain of data.response.results) {
 
     // Push an object containing the domain's risk score and name to _scores array.
@@ -48,7 +55,7 @@ function solution(data) {
 }
 
 
-const [scores, ips, phishing] = solution(jsonData);
+const [scores, ips, phishing] = solution(fileName);
 
 // #1 Output the domain with the highest risk score and the domain with the
 //      lowest risk score (If tied the first occurence).
