@@ -50,8 +50,8 @@ function solution(jsonDataFile) {
 
 const [scores, ips, phishing] = solution(fileName);
 
-// #1 Output the domain with the highest risk score and the domain with the
-//      lowest risk score (If tied the first occurence).
+// # 1 Output the domain with the highest risk score and the domain with the
+//       lowest risk score (If tied the first occurence).
 let minKey = null;
 let maxKey = null;
 scores.reduce((_, obj) => {
@@ -66,13 +66,13 @@ scores.reduce((_, obj) => {
 console.log(scores.filter((obj) => parseInt(Object.keys(obj)[0]) === maxKey)[0]);
 console.log(scores.filter((obj) => parseInt(Object.keys(obj)[0]) === minKey)[0]);
 
-// #2 What’s the average of all the domain risk scores
+// # 2 What’s the average of all the domain risk scores
 const nums = scores.map(obj => parseInt(Object.keys(obj)[0]));
 const sum = nums.reduce((acc, curr) => acc + curr);
 console.log(sum / nums.length);
 
-// #3 Print a list of unique IP addresses.
+// # 3 Print a list of unique IP addresses.
 console.log([... new Set(ips)]);
 
-// #4 Tell me all the domains which contains “phishing” as one of its threats.
+// # 4 Tell me all the domains which contains “phishing” as one of its threats.
 console.log(phishing);

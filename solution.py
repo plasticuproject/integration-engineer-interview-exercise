@@ -1,4 +1,5 @@
 """solution.py"""
+
 import json
 from typing import Tuple, List
 from statistics import mean
@@ -62,21 +63,18 @@ if __name__ == "__main__":
 
     # 1 #
     # Output the domain with the highest risk score and the domain with the
-    #     lowest risk score (If tied the first occurence).
+    #     lowest risk score (If tied use the first occurrence).
     print(max(scores, key=lambda x: x[0]))
     print(min(scores, key=lambda x: x[0]))
 
     # 2 #
     # What’s the average of all the domain risk scores.
     print(mean([i[0] for i in scores]))
-    print()
 
     # 3 #
     # Print a list of unique IP addresses.
     print(set(ips))
-    print()
 
     # 4 #
     # Tell me all the domains which contains “phishing” as one of its threats.
     print(phishing)
-    print()

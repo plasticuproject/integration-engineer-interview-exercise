@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "response": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "domain": {
+                  "type": "string"
+                },
+                "domain_risk": {
+                  "type": "object",
+                  "properties": {
+                    "risk_score": {
+                      "type": "string"
+                    },
+                    "components": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "risk_score",
+                    "components"
+                  ]
+                },
+                "ip": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "address": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "address"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "domain",
+                "domain_risk",
+                "ip"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "results"
+      ]
+    }
+  },
+  "required": [
+    "response"
+  ]
+}

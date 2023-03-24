@@ -1,0 +1,24 @@
+{
+  "response": {
+    "results": [
+      {
+        "domain": "string",
+        "domain_risk": {
+          "risk_score": "number",
+          "components": [
+            {
+              "name": "string"
+            }
+          ]
+        },
+        "ip": [
+          {
+            "address": {
+              "value": "string"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
