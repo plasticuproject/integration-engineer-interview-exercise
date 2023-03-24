@@ -48,23 +48,23 @@ type solutionReturnType = [
    const _ips: string[] = [];
    const _phishing: { [key: string]: string }[] = [];
 
-  // Loop through domain objects in JSON Object.
-  for (let domain of data.response.results) {
+  // Loop through results objects in JSON Object.
+  for (let result of data.response.results) {
 
     // Push an object containing the domain's risk score and name to _scores array.
-    const domainScore = domain.domain_risk.risk_score;
-    const domainName = domain.domain;
-    _scores.push({[domain.domain_risk.risk_score]: domain.domain});
+    const domainScore = result.domain_risk.risk_score;
+    const domainName = result.domain;
+    _scores.push({[result.domain_risk.risk_score]: result.domain});
 
     // Push each IP address to _ips array.
-    for (let addresses of domain.ip) {
+    for (let addresses of result.ip) {
       _ips.push(addresses.address.value);
     }
 
     // Push an object containing the domain name and its phishing component to _phishing array.
-    for (let component of domain.domain_risk.components) {
+    for (let component of result.domain_risk.components) {
       if (component.name.includes('phishing')) {
-        _phishing.push({[domain.domain]: component.name});
+        _phishing.push({[result.domain]: component.name});
       }
     }
   }

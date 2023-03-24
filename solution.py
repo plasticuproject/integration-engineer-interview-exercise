@@ -37,22 +37,22 @@ def solution(file_name: str) -> SolutionReturnType:
     _ips: List[str] = []
     _phishing: List[Tuple[str, str]] = []
 
-    # Loop through domain dictionaries in JSON data.
-    for domain in data['response']['results']:
+    # Loop through results objects in JSON data.
+    for result in data['response']['results']:
 
         # Append a tuple containing the domain's risk score and name to
         #   _scores list.
-        _scores.append((domain['domain_risk']['risk_score'], domain['domain']))
+        _scores.append((result['domain_risk']['risk_score'], result['domain']))
 
         # Append each IP address to _ips list.
-        for addresses in domain['ip']:
+        for addresses in result['ip']:
             _ips.append(addresses['address']['value'])
 
         # Append a Tuple containing the domain name and its phishing component
         #   to _phishing list.
-        for component in domain['domain_risk']['components']:
+        for component in result['domain_risk']['components']:
             if 'phishing' in component['name']:
-                _phishing.append((domain['domain'], component['name']))
+                _phishing.append((result['domain'], component['name']))
 
     # Return a list containing the _scores, _ips, and _phishing lists.
     return (_scores, _ips, _phishing)
