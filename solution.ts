@@ -24,7 +24,7 @@ interface InvestigationData {
 type solutionReturnType = [
   { [key: number]: string }[],
   string[],
-  { [key: string]: string }[]
+  { [key: string]: string }
 ];
 
 
@@ -36,7 +36,7 @@ type solutionReturnType = [
  * @returns {solutionReturnType} - An array containing three arrays:
  *   1. An array of objects, each containing a domain's risk score and name.
  *   2. An array of IP addresses extracted from the JSON data.
- *   3. An array of objects, each containing a domain name and its associated phishing component.
+ *   3. An object containing a domain name and its associated phishing component.
  */
  function solution(jsonDataFile: string): solutionReturnType {
 
@@ -46,7 +46,7 @@ type solutionReturnType = [
    // Initialize empty arrays.
    const _scores: { [key: number]: string }[] = [];
    const _ips: string[] = [];
-   const _phishing: { [key: string]: string }[] = [];
+   const _phishing: { [key: string]: string } = {};
 
   // Loop through results objects in JSON Object.
   for (let result of data.response.results) {
@@ -64,7 +64,7 @@ type solutionReturnType = [
     // Push an object containing the domain name and its phishing component to _phishing array.
     for (let component of result.domain_risk.components) {
       if (component.name.includes('phishing')) {
-        _phishing.push({[result.domain]: component.name});
+        _phishing[result.domain] = component.name;
       }
     }
   }

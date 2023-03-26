@@ -10,7 +10,7 @@ const fileName = './some_dt_data_from_investigate.json';
  * @returns {Array} - An array containing three arrays:
  *   1. An array of objects, each containing a domain's risk score and name.
  *   2. An array of IP addresses extracted from the JSON data.
- *   3. An array of objects, each containing a domain name and its associated phishing component.
+ *   3. An object containing a domain name and its associated phishing component.
  */
 function solution(jsonDataFile) {
 
@@ -20,7 +20,7 @@ function solution(jsonDataFile) {
    // Initialize empty arrays.
   const _scores = [];
   const _ips = [];
-  const _phishing = [];
+  const _phishing = {};
 
    // Loop through results objects in JSON Object.
   for (let result of data.response.results) {
@@ -38,7 +38,7 @@ function solution(jsonDataFile) {
     // Push an object containing the domain name and its phishing component to _phishing array.
     for (let component of result.domain_risk.components) {
       if (component.name.includes('phishing')) {
-        _phishing.push({[result.domain]: component.name});
+        _phishing[result.domain] = component.name;
       }
     }
   }
