@@ -1,13 +1,12 @@
 """solution.py"""
 
 import json
-from typing import Tuple, List
+from typing import Tuple, List, Dict
 from statistics import mean
 
 FILE_NAME = "some_dt_data_from_investigate.json"
 
-SolutionReturnType = Tuple[List[Tuple[int, str]], List[str], List[Tuple[str,
-                                                                        str]]]
+SolutionReturnType = Tuple[List[Tuple[int, str]], List[str], Dict[str, str]]
 
 
 def solution(file_name: str) -> SolutionReturnType:
@@ -20,22 +19,22 @@ def solution(file_name: str) -> SolutionReturnType:
 
     Returns:
         SolutionReturnType:
-        A list containing three lists:
+        A tuple containing three containers:
             1. A list of tuples, each containing a domain's risk
                score and name.
             2. A list of IP addresses extracted from the JSON data.
-            3. A list of tuples, each containing a domain name and
-               its associated phishing component.
+            3. A dictionary containing a domain name and it's associated
+               phishing component.
     """
 
     # Load data from JSON file.
     with open(file_name, "r", encoding='utf-8') as data_file:
         data = json.load(data_file)
 
-    # Initialize empty lists.
+    # Initialize empty containers.
     _scores: List[Tuple[int, str]] = []
     _ips: List[str] = []
-    _phishing: List[Tuple[str, str]] = []
+    _phishing: Dict[str, str] = {}
 
     # Loop through results objects in JSON data.
     for result in data['response']['results']:
@@ -48,13 +47,13 @@ def solution(file_name: str) -> SolutionReturnType:
         for addresses in result['ip']:
             _ips.append(addresses['address']['value'])
 
-        # Append a Tuple containing the domain name and its phishing component
-        #   to _phishing list.
+        # Add a domain name and set it's phishing component to _phishing
+        #   dictionary.
         for component in result['domain_risk']['components']:
             if 'phishing' in component['name']:
-                _phishing.append((result['domain'], component['name']))
+                _phishing[result['domain']] = component['name']
 
-    # Return a list containing the _scores, _ips, and _phishing lists.
+    # Return a tuple containing the _scores, _ips, and _phishing containers.
     return (_scores, _ips, _phishing)
 
 
